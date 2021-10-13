@@ -1,37 +1,12 @@
-﻿+ Create a directory on the local file system.
-+ Create a repo on Github <https://github.com/>
-+ Visual Studio code öffnen - File - Open - Ordner auswählen
-+ git init
-+ .gitignore erstellen im Wurzelverzeichnis
-
-Github
-[+ Select Clone "Clone or download" on Github, copy the link]
+﻿
 + git config --global user.name patrick2305
 + git config --global http.sslVerify false
-+ git remote add origin https://github.com/patrick2305/03_Office365.git
-+ git branch -M master
-+ git push -u origin master
-
-+ Devops: Repository anlegen ohne Branch
-+ git init
-+ git remote add origin https://krm-it.visualstudio.com/Sharepoint%20Online/_git/Foto%20Upload
-+ Git fetch
-+ Git add --all
-+ git commit -m "Init"
-+ git push -u origin master
-
-Delete Local Branch
-+ git branch -d LOCAL_BRANCH_NAME (vorher zu anderen Branch gehen)
-Delete REmote Branch
-+ git push origin --delete test
-
--------------
 
 + https://github.com/ --> New Repository --> Repository name angeben ("manuals")
     + private
     + alles deaktiviert lassen
-+ STRG + Ö --> Temrinal
-+ Command Line
++ STRG + Ö --> Terminal
++ Command Line (Befehle bekomme ich von Github nach Erstellen des Repositories)
     echo "# manuals" >> README.md
     git init
     git add README.md
@@ -40,6 +15,19 @@ Delete REmote Branch
     git remote add origin https://github.com/patrick2305/manuals.git
     git push -u origin main
 
++ Devops: Repository anlegen ohne Branch
+    git init
+    git remote add origin https://krm-it.visualstudio.com/Sharepoint%20Online/_git/Foto%20Upload
+    Git fetch
+    Git add --all
+    git commit -m "Init"
+    git push -u origin master
+
+
+Delete Local Branch
++ git branch -d LOCAL_BRANCH_NAME (vorher zu anderen Branch gehen)
+Delete REmote Branch
++ git push origin --delete test
 
 
 
