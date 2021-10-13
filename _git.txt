@@ -23,6 +23,7 @@
     git commit -m "Init"
     git push -u origin master
 
++ .gitignore
 
 Delete Local Branch
 + git branch -d LOCAL_BRANCH_NAME (vorher zu anderen Branch gehen)
