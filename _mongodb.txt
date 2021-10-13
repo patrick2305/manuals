@@ -1,0 +1,64 @@
+0. GIT
+    a. Befehle
+        +  git fetch --prune
+        +  git fetch
+    b. https://patrick-reidinger.visualstudio.com/
+    c. Create a project (Name: RP_API, Visibilty: private, Version Control: Git, Work Item process: Agile)
+    d. > git init
+    e. .gitignore for node modules usw.
+    e. > git remote add origin https://patrick-reidinger.visualstudio.com/RP_API/_git/RP_API
+    f. > git push -u origin --all
+
+
+0. https://itnext.io/building-restful-web-apis-with-node-js-express-mongodb-and-typescript-part-1-2-195bdaf129cf 
+1. Install NodeJS
+2. Fiddler / Postman (https://www.getpostman.com/apps)
+3. npm init
+4. npm install typescript ts-node 
+5. Install MongoDB
+    a. https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
+    b. Data Files: C:\data (create sub folders db, log)
+6. Robo 3T
+    https://robomongo.org/download
+7. npm install --save @types/express express body-parser mongoose nodemon
+8. Create tsconfig.json: add content
+9. Edit package.json: scripts
+    a. Development: npm run dev
+    b. Production: npm ron prod
+    c. Refresh dist folder: tsc
+10.lib/app.ts
+11.lib/server.ts
+12.lib/routes/myRoutes.ts
+13.lib/models/myModel.ts
+    a. https://mongoosejs.com/docs/guide.html
+14.lib/controllers/myController.ts
+15. Fiddler
+    a. Composer
+    b. Inspectors
+        + Raw, JSON, XML, ...
+    c. GET --> http://127.0.0.1:3000
+    e. GET --> http://127.0.0.1:3000/test
+    f. POST --> http://127.0.0.1:3000/test 
+        + Request Header
+            + Content-Type: application/json
+        + Request Body
+            + {"firstName": "Patrick","lastName":"Reidinger","Age":"45"}
+    g. GET --> http://127.0.0.1:3000/test/5ba0c3f2c35422048839e2ff (Muster)
+        + Request Header
+            + Content-Type: application/json
+    h. PUT --> http://127.0.0.1:3000/test/5ba0c3f2c35422048839e2ff (Muster)
+        + Request Header
+            + Content-Type: application/json
+        + Request Body
+            + {"firstName": "Muster1","lastName":"Muster1","Age":"1000"}
+     i. DELETE --> http://127.0.0.1:3000/test/5ba0c3f2c35422048839e2ff (Muster)
+16. optional: npm install tslint (Dann muss aber ts konform sein)
+17. Access-Control-Allow-Origin: myRoutes.ts
+    public routes(app): void {        
+        app.use(function(req, res, next) {
+            res.setHeader("Access-Control-Allow-Origin", "*");
+            res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+            next();
+        });
+        ...

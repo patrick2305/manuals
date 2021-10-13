@@ -1,0 +1,173 @@
+Ins Verzeichnis C:\Users\rp\AppData\Roaming\npm wechseln
+Oder C:\Users\rp\Programmierung\28_SharePoint2016\SPFx\01_Tests (ohne -g) für lokales Projekt / Verzeichnis
+
+>node -v
+v10.15.3
+
+>npm -v
+6.5.0
+
+---------------------------------------------------------------
+
+Update Node.js (Windows Installation)
+https://nodejs.org/de/
+
+>node -v
+10.15.3
+
+---------------------------------------------------------------
+
+Install / Update Yarn
+https://yarnpkg.com/en/docs/install#windows-stable
+
+>yarn -v
+1.5.2
+
+---------------------------------------------------------------
+
+Update NPM
+
+>npm install --global --production npm-windows-upgrade
+
+Run PowerShell as Administrator
+Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+npm install -g npm-windows-upgrade
+npm-windows-upgrade
+npm-windows-upgrade --npm-version latest
+
+>npm -v
+6.1.0
+
+----------------------------------------------------------------
+
+>npm list -g --depth=0
+
++-- @microsoft/generator-sharepoint@1.5.1
++-- bower@1.8.4
++-- create-react-app@1.5.2
++-- gulp@3.9.1
++-- gulp-cli@2.0.1
++-- npm@6.1.0
++-- npm-check-updates@2.14.2
++-- npm-windows-upgrade@4.1.0
++-- to@0.2.9
++-- update@0.7.4
++-- webpack@3.12.0
++-- webpack-stream@4.0.3
+`-- yo@2.0.2
+
+>npm outdated -g (npm version 6.9.0: Bei Fehler: https://stackoverflow.com/questions/55440912/npm-outdated-error-cannot-read-property-length-of-undefined)
+
+Package                          Current  Wanted  Latest  Location
+@microsoft/generator-sharepoint    1.4.1   1.5.1   1.5.1
+bower                              1.8.2   1.8.4   1.8.4
+npm-check-updates                 2.14.1  2.14.2  2.14.2
+webpack-stream                     4.0.2   4.0.3   4.0.3
+yo                                 2.0.1   2.0.2   2.0.2
+
+>npm update -g (kein Versionssprung)
+
+>npm install -g webpack@3.12.0 --save-dev (Versionssprung: install packagename@version --save-dev)
+
+>npm uninstall -g clock
+
+>npm install (Boilerplate im aktuellen Verzeichnis)
+
+----------------------------------------------------------------------------
+
+React App
+
+>npx create-react-app myapp
+
+>npx create-react-app myapp --scripts-version=react-scripts-ts
+
+>cd myapp
+
+>npm list --depth=0
+
+>npm outdated
+
+>npm update (kein Versionssprung)
+
+>npm install webpack@3.12.0 --save-dev (Versionssprung: install packagename@version --save-dev)
+
+  yarn start
+    Starts the development server.
+
+  yarn build
+    Bundles the app into static files for production.
+
+  yarn test
+    Starts the test runner.
+
+  yarn eject
+    Removes this tool and copies build dependencies, configuration files
+    and scripts into the app directory. If you do this, you can’t go back!
+
+------------------------------------------------------------------------------
+
+GIT
+
+a. Befehle
+	+  git fetch --prune
+        +  git fetch
+b. https://patrick-reidinger.visualstudio.com/
+c. Create a project (Name: RP_CMS, Visibilty: private, Version Control: Git, Work Item process: Agile)
+d. > git init
+e. > git remote add origin https://patrick-reidinger.visualstudio.com/RP_CMS/_git/RP_CMS
+f. > git push -u origin --all
+
+------------------------------------------------------------------------------
+
+Chrome Plugins: React, MobX
+Chrome Developer Tools: Web Speicher, ...
+
+Interceptor, Promises, Polyfill
+
+Moment.js
+
+------------------------------------------------------------------------------
+
+Visual Studio code / CMD
+
+STRG + Ö (Terminal)
+STRG + C (Stop)
+
+------------------------------------------------------------------------------
+
+SharePoint
+
+C:\Users\rp\Programmierung\28_SharePoint2016\SPFx\02_Tests
+
+>yo @microsoft/sharepoint
+
+>gulp trust-dev-cert
+
+>set node_no_http2=1 (SPFx on Node.js v8)
+
+>$env:NODE_NO_HTTP2="1" (Powershell)
+
+>gulp serve
+
+https://localhost:4321/temp/workbench.html
+https://insite4.kremsmueller.com/sites/rp/_layouts/15/workbench.aspx
+
+>gulp serve --nobrowser (Debugger rechts, auf grünen Pfeil klicken, Debugger-Leiste oben mittig)
+!!! (launch.json - hosted workbench - url)
+
+gulp bundle --ship
+
+gulp package-solution --ship
+
+--------------------------------------------------------------------------------
+
+1. Verzeichnis erstellen
+2. Visual Studio Code öffnen
+3. Ins Verzeichnis gehen
+4. server.js
+5. npm init
+6. npm install
+7. npm start
+
+
+

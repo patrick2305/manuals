@@ -1,0 +1,70 @@
++ NVM for Windows: https://github.com/coreybutler/nvm-windows/releases
++ https://github.com/coreybutler/nvm-windows
+
++ nvm install <version>: node.js version or "latest"
++ nvm list: List the node.js installations
++ nvm on: Enable node.js version management.
++ nvm off: Disable node.js version management (does not uninstall anything).
++ nvm uninstall <version>: Uninstall a specific version.
++ nvm use <version>: Switch to use the specified version.
++ nvm version: Displays the current running version of NVM for Windows.
+
++ npm install yo gulp -g
++ npm install @microsoft/generator-sharepoint -g
+
++ https://github.com/SharePoint
++ https://sharepoint.github.io/sp-dev-fx-webparts/samples/all/
+
+https://docs.microsoft.com/de-at/sharepoint/dev/spfx/set-up-your-developer-tenant
+https://docs.microsoft.com/de-at/sharepoint/dev/spfx/set-up-your-development-environment
+https://docs.microsoft.com/de-at/sharepoint/dev/spfx/web-parts/get-started/build-a-hello-world-web-part
+
++ md helloworld-webpart
++ cd helloworld-webpart (Visual Studio code: Ordner öffnen)
++ yo @microsoft/sharepoint
++ gulp trust-dev-cert
++ gulp serve
+
++ gulp package-solution
+
++ Browser: https://krmdevelop.sharepoint.com/sites/apps/AppCatalog/Forms/AllItems.aspx
++ Drag and Drop helloworld-webpart.sppkg from sharepoint/solution to 
+	https://krmdevelop.sharepoint.com/sites/apps/AppCatalog/Forms/AllItems.aspx
++ https://krmdevelop.sharepoint.com/sites/dev
++ Add an app --> Von Ihrer Organisation
+
+Nur 1x pro Tenant
++ https://docs.microsoft.com/en-us/powershell/module/sharepoint-online/get-sposite?view=sharepoint-ps
++ Remote Desktop: krstsrv186 --> SharePoint Online Managment Shell
++ Connect-SPOService -Url https://krmdevelop-admin.sharepoint.com
++ Get-SPOTenantCdnEnabled -CdnType Public
++ Get-SPOTenantCdnOrigins -CdnType Public
++ Get-SPOTenantCdnPolicies -CdnType Public
++ Set-SPOTenantCdnEnabled -CdnType Public
++ Get-SPOTenantCdnOrigins -CdnType Public
+
++ Öffnen Sie package-solution.json im Ordner config.
++ gulp bundle --ship
++ gulp package-solution --ship
++ Browser: https://krmdevelop.sharepoint.com/sites/apps/SitePages/Home.aspx --> Apps for SharePoint oder
+	Url: https://krmdevelop.sharepoint.com/sites/apps/AppCatalog/Forms/AllItems.aspx
++ Drag and Drop helloworld-webpart.sppkg from sharepoint/solution to 
+	https://krmdevelop.sharepoint.com/sites/apps/AppCatalog/Forms/AllItems.aspx
++ https://krmdevelop.sharepoint.com/sites/dev
++ Add an app --> Von Ihrer Organisation
+
++ npm install sp-pnp-js --save
++ https://github.com/SharePoint/PnP-JS-Core/wiki/Developer-Guide
++ https://github.com/pnp/pnpjs
+
++ git config --global http.sslVerify false
++ git clone https://github.com/SharePoint/sp-dev-fx-webparts.git
+
++ Cannot find .scss module error – Enabling SASS integration with your SharePoint Framework code
++ https://xomino.com/2019/08/19/cannot-find-scss-module-error-enabling-sass-integration-with-your-sharepoint-framework-code/
++ 
+
++ Debug ???
++ Git ???
+
+

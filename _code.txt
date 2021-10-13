@@ -1,0 +1,2 @@
++ STRG + C --> kill process in terminal window
++ ! --> HTML code

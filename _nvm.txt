@@ -1,0 +1,10 @@
++ NVM for Windows: https://github.com/coreybutler/nvm-windows/releases
++ https://github.com/coreybutler/nvm-windows
+
++ nvm install <version>: node.js version or "latest"
++ nvm list: List the node.js installations
++ nvm on: Enable node.js version management.
++ nvm off: Disable node.js version management (does not uninstall anything).
++ nvm uninstall <version>: Uninstall a specific version.
++ nvm use <version>: Switch to use the specified version.
++ nvm version: Displays the current running version of NVM for Windows.

@@ -1,0 +1,37 @@
+1. npm run dev
+2. npm run build --> npm run export
+3. npm run build --> npm run startt
+4. npm install -g serve (Static server) --> cd out --> serve -p 8080
+5. firebase login
+6. firebase init
+7. firebase deploy
+8. debug: https://github.com/microsoft/vscode-recipes/tree/master/Next-js
+9. launch.js
+    Debug Nextjs program without custom server, use the configuration:
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch via NPM",
+            "runtimeExecutable": "${workspaceFolder}\\node_modules\\.bin\\next",
+            "port": 9229,
+            "env": {
+                "NODE_OPTIONS": "--inspect"
+            }
+        }
+    Debug Nextjs program with custom server, use the configuration：
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Next: Node",
+            "program": "${workspaceFolder}/server.js",
+            "runtimeArgs": [
+                "--inspect"
+            ],
+            "port": 9229,
+            "console": "integratedTerminal"
+        }
+10. _app.js 
+    import '../static/empty.css'; // for next.js to navigate to pages with css import
+11. npm install @tensorflow/tfjs --save
+12. 
+  

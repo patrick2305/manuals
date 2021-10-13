@@ -1,0 +1,925 @@
+Links:
++ https://medium.com/the-node-js-collection/modern-javascript-explained-for-dinosaurs-f695e9747b70
++ https://www.valentinog.com/blog/webpack-tutorial/
++ https://medium.com/@francesco.agnoletto/how-to-set-up-typescript-with-babel-and-webpack-6fba1b6e72d5 
++ https://getbootstrap.com/docs/4.0/getting-started/webpack/
++ https://mobx.js.org/getting-started.html 
++ https://mobx.js.org/refguide/observable.html
++ https://www.spectory.com/blog/MobX%20with%20React%20Introduction
++ https://github.com/mobxjs/mobx-react/blob/master/README.md 
++ https://github.com/bevacqua/dragula
++ https://yarnpkg.com/en/docs/install#windows-stable
++ https://www.styled-components.com/
++ https://medium.com/styled-components/styled-components-getting-started-c9818acbcbbd
++ https://material-ui.com/
++ https://github.com/axios/axios
++ https://blog.pusher.com/getting-started-with-react-router-v4/
++ https://tylermcginnis.com/react-router-pass-props-to-components/
+
+???:
++ Linter ?
++ Types ?
++ dependencies, devDependencies ?
++ Debug jquery ?
+
+Development:
+1. Chrome Plugins: React, Mobx
+2. Chrome Developer Tools: Web Speicher, ...
+3. Visual Studio Code   
+    a. STRG + Ö (Terminal)
+    b. STRG + C (Abbrechen)
+    c. F1 (Suche)
+    d. PrintCode (Plugin) --> F1 - >PrintCode
+4. emmet : HTML5 Code ergänzen -->  ! + ENTER
+5. Visual Studio Code Extensions
+    a. Debugger for Chrome: https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome
+    b. tslint
+    c. eslint
+6. Console.log --> Chrome - Developer Tools - console
+Installation:
+1. Node.js installieren (npm ist automatische installiert)
+    a. >node -v
+    b. >npm -v
+    c. Install / Update node.js --> https://nodejs.org/de/
+        + C:\Program Files (x86)\nodejs\ 
+    d. Update npm (npm: JavaScript Package Manager)
+        + C:\Users\rp\AppData\Roaming\npm
+        + Run PowerShell as Administrator
+        + Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+        + npm install -g npm-windows-upgrade
+        + npm-windows-upgrade (npm-windows-upgrade --npm-version latest)
+    e. Befehle
+        + npm list [-g] --depth=0
+        + npm outdated [-g]
+        + npm update [-g] (kein Versionssprung)
+        + npm install [-g] webpack@4.17.1 --save-dev (npm install packagename@version --save-dev) (Versionssprung)
+        + npm uninstall -[g] clock
+        + npm install (Boilerplate im aktuellen Verzeichnis laut package.json)
+    f. Optionen
+        + --save: instructed NPM to include the package inside of the dependencies section of your package.json automatically, thus saving you an additional step.
+        + --save-dev saves the package under devDependencies
+    g. Globale NPM Packages sind hier: C:\Users\rp\AppData\Roaming\npm\node_modules
+2. Verzeichnis erstellen --> C:\Users\rp\Programmierung\29_React\05_ModernJavaScript
+3. Visual Studio Code öffnen
+4. Terminal öffnen --> STRG + Ö
+5. Ins Verzeichnis gehen --> CD C:\Users\rp\Programmierung\29_React\05_ModernJavaScript
+
+Entwicklungsumgebung:
+!!! NPM == Package Manager
+!!! WEBPACK == Module Bundler
+!!! BABEL == Transpiling code for new language features
+!!! TASK RUNNER == NPM Scripts
+1. npm init --> package.json wird erstellt
+2. index.html erstellen --> ! + ENTER (emmet)
+    <script src="dist/main.js"></script>
+3. npm install jquery --save
+4. index.js erstellen
+    var $ = require('jQuery');
+    $(function(){
+        alert ('Hallo');
+    });
+5.  install WebPack npm install: JavaScript Module Bundler)
+    a. npm install webpack webpack-cli --save-dev
+    b. >./node_modules/.bin/webpack index.js --mode=development --> dist/main.js wird erstellt aus index.js
+    c. alle Verweise in index.js werden berücksichtigt
+    -------------------------------------------------------------------------------------------------
+    d. webpack.config.js erstellen
+        module.exports = {
+            mode: 'development',
+            entry: './index.js',
+            output: {
+                filename: 'main.js',
+                publicPath: 'dist'
+            }
+        };
+    e. >./node_modules/.bin/webpack statt >./node_modules/.bin/webpack index.js --mode=development
+6. Install babel: Transpiling code for new language features, JavaScript ES6 and abobe, ... down to ES5)
+    a. npm install @babel/core @babel/preset-env babel-loader --save-dev
+    b. webpack.config.js (for ES2015)
+        module: {
+            rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['@babel/preset-env']
+                }
+                }
+            }
+            ]
+        }
+    c. index.js
+        + import $ from 'jquery' instead of var $ = require('jQuery');
+    d. TypeScript
+        + Create ./src/index.ts
+            import $ from 'jquery';
+            $(function(){
+                var myname = "Test", time = "TypeScript";
+                var expression = `... ${myname} ${time}!`;
+                $('#test-typescript').html(expression);
+            });
+        + index.html   
+            <span id="test-typescript"></span>
+        + index.js
+            import './index.ts';
+7. Using a task runner:
+    a. package.json (bei scripts)
+        "build": "webpack --progress --mode=production",
+        "watch": "webpack --progress --watch"
+    b. npm run build
+    c. npm run watch 
+        + für automatische Änderungen auf Webseite bei Änderungen im Code (automatisches Bundeln)
+8. Install a web server
+    a. npm install webpack-dev-server --save-dev 
+    b. package.json (unter scripts)
+        "server": "webpack-dev-server --open"
+    c. npm run server
+9. WebPack: Extracting html file to dist (automatisch nach dist)
+    a. npm install  html-webpack-plugin html-loader --save-dev
+    b. webpack.config.js 
+        !!! minimize: true --> index.html wird minimiert
+        const HtmlWebPackPlugin = require("html-webpack-plugin");
+        ...
+        {
+            test: /\.html$/,
+            use: [
+            {
+                loader: "html-loader",
+                options: { minimize: true }
+            }
+            ]
+        }
+        ...
+        new HtmlWebPackPlugin({
+            template: "./index.html",
+            filename: "./index.html"
+        })
+    c. siehe Punkt 2: <script src="dist/main.js"></script> kann damit entfernt werden aus index.html
+    d. webpack.config.js: folgenden Code entfernen --> webpack 4 is looking for entrypoint in ./src (./src/index.js) and the standard output is ./dist/main.js, 
+        but you can override the defaults entry/output
+        // mode: 'development',
+        // entry: './index.js',
+        // output: {
+        //   filename: 'main.js',
+        //   publicPath: 'dist'
+        // },
+    e. index.html, index.js, index.css nach src/index.html verschieben
+    f. webpack.config.js: index.html nach src/index.html Änderungen
+         new HtmlWebPackPlugin({
+            template: "./src/index.html",
+            filename: "./index.html"
+        }),
+9. Webpack: Extracting CSS to a file in dist
+    a. npm i mini-css-extract-plugin css-loader --save-dev
+    b. webpack.config.js    
+        const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+        ...
+        {
+            test: /\.css$/,
+            use: [MiniCssExtractPlugin.loader, "css-loader"]
+        }
+        ...
+         plugins: [
+            new MiniCssExtractPlugin({
+            filename: "[name].css",
+            chunkFilename: "[id].css"
+            })
+        ]
+    c. index.js
+        import style from "./index.css";
+10.Production and development mode  
+    a. package.json: (since swebpack 4)
+        from:
+            "test": "echo \"Error: no test specified\" && exit 1",
+            "build": "webpack --progress --mode=production",
+            "watch": "webpack --progress --watch",
+            "server": "webpack-dev-server --open"
+        to:
+            "build": "webpack --progress --mode=production",
+            "start": "webpack-dev-server --mode development --open"
+11. Transpiling with Babel7
+    a. create .babelrc
+        {
+            "presets": [
+                "@babel/preset-env"
+            ]
+        }
+    b. webpack.config.js:
+        remove:
+            ,
+            options: {
+                presets: ['@babel/preset-env']
+            }
+12.Webpack: Extracting SASS to a file in dist
+    a. Create ./src/index.scss
+    b. src/index.html
+        <span class="test-css">Test SASS</span>
+    c. src/index.js 
+        import './index.scss'
+    d. npm install sass-loader --save-dev
+    e. npm install node-sass --save-dev (benötigt von sass-loader)
+    f. [npm install style-loader --save-dev]: !!! braucht man anscheinendn nicht !!!
+    g. Änderungen in  webpack.config.js
+        from:
+            test: /\.css$/,
+            use: [MiniCssExtractPlugin.loader, "css-loader"]
+        to:
+            test: /\.(sa|sc|c)ss$/,
+            use: [MiniCssExtractPlugin.loader,'css-loader', 'sass-loader']
+13. React
+    a. npm install react react-dom --save-dev
+    b. npm install @babel/preset-react --save-dev
+    c. .babelrc 
+        from:
+            "presets": [
+                "@babel/preset-env"
+            ]
+        to:
+            "presets": [
+                "@babel/preset-env", "@babel/preset-react"
+            ]
+    d. webpack.config.js (unter rules)
+        from:
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                loader: 'babel-loader'
+                }
+            }
+        to:
+        {
+            test: /\.(js|jsx)$/,
+            exclude: /node_modules/,
+            use: {
+                loader: "babel-loader"
+            }
+        }
+    e. Create ./src/react/app.js (include HTML)
+        import React from "react";
+        import ReactDOM from "react-dom";
+
+        const MyApp = () => {
+        return (
+            <div>
+            <p>Test react</p>
+            </div>
+        );
+        };
+        export default MyApp;
+        ReactDOM.render(<MyApp />, document.getElementById("test-react"));
+    f. ./src/index.js
+        import App from "./react/app";
+    g. ./src/index.html 
+        ...
+        <span id="test-react"></span>
+        ...
+
+15. React jsx
+    a. index.html   
+        <span id="test-react-jsx"></span>
+    b. index.js
+        import './react/appjsx.jsx';
+    c. create ./src/react/appjsx.jsx
+        import React from "react";
+        import ReactDOM from "react-dom";
+
+        const MyAppJSX = () => {
+        return (
+            <div>
+            <p>Test react JSX</p>
+            </div>
+        );
+        };
+        export default MyAppJSX;
+        ReactDOM.render(<MyAppJSX />, document.getElementById("test-react-jsx"));
+16. React tsx
+    a. npm install typescript @babel/preset-typescript --save-dev
+    b. create tsconfig.json
+        {
+            "compilerOptions": {
+                "outDir": "./dist/",
+                "sourceMap": true,
+                "noImplicitAny": true,
+                "module": "commonjs",
+                "target": "es5",
+                "jsx": "react"
+            },
+            "include": [
+                "./src/**/*"
+            ]
+        }
+    c. .babelrc
+        from:
+            {
+                "presets": [
+                    "@babel/preset-env", "@babel/preset-react"
+                ]
+            }
+        to:
+            {
+                "presets": [
+                    "@babel/preset-env", "@babel/preset-react", "@babel/typescript"
+                ]
+            }
+    d. webpack.config.js (rules)
+        from:
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: {
+                  loader: "babel-loader"
+                }
+            }
+        to:
+             {  
+                test: /\.(js|jsx|ts|tsx)$/,
+                exclude: /node_modules/,
+                use: {
+                  loader: "babel-loader"
+                }
+            }
+    e. index.html
+        <span id="test-react-tsx"></span>
+    f. index.js
+        import Apptsx from "./react/apptsx.tsx";
+    g. Create ./src/react/apptsx.tsx
+        import * as React from 'react';
+        import * as ReactDOM from "react-dom";
+
+        class Apptsx extends React.Component {
+        public render() {
+            return (
+            <div>
+            <p>Test react JSX</p>
+            </div>
+            );
+        }
+        }
+
+        export default Apptsx;
+        ReactDOM.render(<Apptsx />, document.getElementById("test-react-tsx"));
+    h. npm install @types/react @types/react-dom @types/react-router-dom --save-dev (because of warnings)
+    i. npm install @types/jquery --savedev
+        + index.ts
+            from:
+                import $ from 'jquery';
+            to:
+                import 'jquery';
+17. index.ts
+        from:
+            import 'jquery';
+        to:
+            import * as $ from 'jquery';
+18.Minification 
+    a. npm install uglifyjs-webpack-plugin --save-dev
+    b. npm install optimize-css-assets-webpack-plugin --save-dev
+    c. webpack.config.js
+        const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+        const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+        ...
+         optimization: {
+            minimizer: [
+                    new UglifyJsPlugin({
+                    cache: true,
+                    parallel: true,
+                    sourceMap: true // set to true if you want JS source maps
+                    }),
+                    new OptimizeCSSAssetsPlugin({})
+                ]
+            },
+            ...
+19. Bootstrap
+    a. npm install bootstrap [jquery] popper.js --save
+    b. ./src/index.js
+        import 'bootstrap/dist/css/bootstrap.min.css';
+        ...
+        import 'bootstrap'; (JavaScript)
+        ...
+20. Access to Web API
+    a. Open API - Folder with a new instance of Visual Studio Code
+    b. STRG + Ö
+    c. npm run prod
+    d. API Server Address: http://localhost:3000
+    e. index.js (in the jquey function() method)
+        $.ajax('http://localhost:3000/test', 
+        {
+            method: 'GET', 
+            dataType: 'json', // type of response data
+            timeout: 500,     // timeout milliseconds
+            success: function (data,status,xhr) {   // success callback function
+                
+                $('h1').html("success: " + JSON.stringify(data));
+
+                $('h1').append("</br>");
+
+                // for (var row in JSON.parse(data)){
+                //     $('h1').append(JSON.stringify(row));
+                // }
+
+                $('h1').append("Datensätze: " + data.length);
+
+                $('h1').append("</br>");
+
+                for (var i = 0; i < data.length; i++) // for each row
+                {
+                    // $('h1').append(data[i]['firstName']);
+                    Object.keys(data[i]).forEach(function(key) {
+                        $('h1').append('Key : ' + key + ', Value : ' + data[i][key] + " - ");
+                    })
+                    $('h1').append("</br>");
+                }
+            },
+            error: function (jqXhr, textStatus, errorMessage) { // error callback 
+                $('h1').html("error: " + errorMessage);
+            }
+        });
+19. Web Components / Custom Elements
+    a. Create ./src/customelements/primenumbers.js
+        class PrimeNumbers extends HTMLElement {
+            constructor() {
+            super();
+            this._from = 2;
+            this._to = 10;
+            }
+        
+            static get observedAttributes() { return ['from', 'to']; }
+        
+            attributeChangedCallback(name, oldValue, newValue) {
+            // name will always be "country" due to observedAttributes
+            switch (name) {
+                case 'from':
+                this._from = parseInt(newValue);
+                break;
+                case 'to':
+                this._to = parseInt(newValue);
+                break;
+            }
+            this._updateRendering();
+            }
+            connectedCallback() {
+            this._updateRendering();
+            }
+        
+            get from() {
+            return this._from;
+            }
+            set from(v) {
+            this.setAttribute("from", v);
+            }
+
+            get to() {
+            return this._to;
+            }
+            set to(v) {
+            this.setAttribute("to", v);
+            }
+        
+            _updateRendering() {
+            // Left as an exercise for the reader. But, you'll probably want to
+            // check this.ownerDocument.defaultView to see if we've been
+            // inserted into a document with a browsing context, and avoid
+            // doing any work if not.
+
+            test = '';
+            for (number = this._from; number <= this._to; number++) {
+                test = test + ', ' + number;
+            } 
+
+            this.innerHTML = `
+                <style>
+                h2 {
+                    font-size: 2.5rem;
+                    color: hotpink;
+                    font-family: monospace;
+                    text-align: center;
+                    text-decoration: pink solid underline;
+                    text-decoration-skip: ink;
+                }
+                </style>
+                <h2>Custom element: ` + test.substring(2) + `</h2>`;
+            }
+        }
+
+        customElements.define("prime-numbers", PrimeNumbers);
+    b. ./src/index.js
+        import './customelements/primenumbers';
+        ...
+    c. ./src/index.html
+        <prime-numbers from="2" to="15"></prime-numbers>
+20. Debugger
+    a. Install Debugger for Chrome: https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome
+    b. Breakpoint setzen
+    c. Debug (grüner Pfeil)
+    d. Beim ersten al wird .vscode/launch.json erstellt
+21. Mobx    
+    a. npm install mobx --save
+    b. index.html
+        <br/>
+        <a id="test-mobx-bu" href="#">Change Value of variable</a>
+        <span id="test-mobx"></span>
+    c. index.js
+        import { observable, autorun} from "mobx";
+
+        class HelloMobx {
+        @observable text = 'Hello Mobx';
+        }
+        ...
+        autorun(()=> {$('#test-mobx').html(helloMobx.text)})
+        ...
+        $('#test-mobx-bu').click(function(){
+            helloMobx.text = 'Hello Mobx !';
+        })
+    d. Enabling decorator syntax (@observable)
+        + tsconfig.js (for TypeScript)
+            ,
+            "experimentalDecorators": true
+        + npm install --save-dev babel-preset-mobx
+        + .babelrc
+            , "mobx"
+    e. Fehler bei index.js --> const helloMobx = new HelloMobx();
+        + In VSCode, Go to File => Preferences => Settings (or Control+comma) and it will open the User Settings file. 
+        Add "javascript.implicitProjectConfig.experimentalDecorators": true to the file and it should fix it. It did for me.
+    f. index.js
+        import ObservableTodoStore from './stores/TodoStore';
+        ....
+
+        (Am Ende von jquery Schleife nach "autorun(()=> {$('#test-mobx').html(helloMobx.text)})" und vor "}")
+        const observableTodoStore = new ObservableTodoStore();
+
+        observableTodoStore.addTodo("read MobX tutorial");
+        observableTodoStore.addTodo("try MobX");
+        observableTodoStore.todos[0].completed = true;
+        observableTodoStore.todos[1].task = "try MobX in own project";
+        observableTodoStore.todos[0].task = "grok MobX tutorial";
+        ...
+    g. create ./src/stores/TodoStore.js (WICHTIG: !!! export default class !!!)
+        export default class ObservableTodoStore {
+            @observable todos = [];
+            @observable pendingRequests = 0;
+
+            constructor() {
+                autorun(() => console.log(this.report));
+            }
+
+            @computed get completedTodosCount() {
+                return this.todos.filter(
+                    todo => todo.completed === true
+                ).length;
+            }
+
+            @computed get report() {
+                if (this.todos.length === 0)
+                    return "<none>";
+                return `Next todo: "${this.todos[0].task}". ` +
+                    `Progress: ${this.completedTodosCount}/${this.todos.length}`;
+            }
+
+            addTodo(task) {
+                this.todos.push({
+                    task: task,
+                    completed: false,
+                    assignee: null
+                });
+            }
+        }
+    h. Console.log --> Chrome - Developer Tools - console
+22. Mobx + React + JS
+    a. npm install mobx-react --save
+    b. index.html
+        <br/>
+        <span id="test-reactmobx"></span>
+    c. index.js
+        import './react/appmobx/appmobx';
+    d. create ./src/stores/groceries.store.js
+    e. create ./src/react/appmobx/appmobx.js
+    f. create ./src/react/appmobx/add.component.js
+    g. create ./src/react/appmobx/groceriesList.component.js
+    h. create ./src/react/appmobx/grocery.component.js
+    i. create ./src/react/appmobx/app.css
+23. More than one HTML Pages / Templates (Achtung chunks müssen gleich sein: test: './src/test.js' und chunks: ['test'])
+    a. webpack.config.js
+        entry: {
+            index: ['./src/index.js', './src/index2.js'] ,
+            test: './src/test.js',
+            test_index: './src/test/test_index.js'
+        },
+        ...
+         new HtmlWebPackPlugin({
+            template: "./src/index.html",
+            filename: "./index.html",
+            chunks: ['index']
+            }),
+        new HtmlWebPackPlugin({
+            template: "./src/test.html",
+            filename: "./test.html",
+            chunks: ['test']
+        }),           
+        new HtmlWebPackPlugin({
+            template: "./src/test/test_index.html",
+            filename: "./test/test_index.html",
+            chunks: ['test_index']
+        }),
+    b. Create Files
+        + test.html
+        + test.js
+            import style from "./test.css";
+            alert ('Hallo 2.Seite!');
+        + test.css
+        + test/test_index_html
+        + test/test_index.js
+            import style from "./test_index.css";
+        + test/test_index.css
+24. More than one Script File for index.html
+    a. webpack.config.js
+         entry: {
+            index: ['./src/index.js', './src/index2.js'] ,
+            test: './src/test.js'
+        },
+25. Code Splitting / Dynamic Imports 
+    a. https://webpack.js.org/guides/code-splitting/
+    b. webpack.config.js
+26. Images: <img id="drag1" src="img_logo.gif" draggable="true" ondragstart="drag(event)" width="336" height="69">
+    a. npm install image-webpack-loader --save-dev
+    b. npm install file-loader --save-dev
+    c. webpack.config.js
+        {
+            test: /\.(gif|png|jpe?g|svg)$/i,
+            use: [
+                'file-loader',
+                {
+                loader: 'image-webpack-loader',
+                options: {
+                    bypassOnDebug: true, // webpack@1.x
+                    disable: true, // webpack@2.x and newer
+                },
+                },
+            ],
+        },
+27. Aufrufen einer Funktion in index.html, wenn die Funktion in index.js ist --> funktioniert nicht
+    <script type="text/javascript">
+
+        alert (hallo());
+
+    </script>
+    .....
+    function hallo(){
+    alert ("Hallo Welt");
+    }
+
+    Anmerkung:
+        When you run the file over webpack, webpack will try not to litter the global scope and so the function will not be made available globally by default.
+        If you want the function to be accessible outside the scope of he JS file, you should put it in the global scope.
+
+            function uclicked() {
+            // do something
+            }
+            window.uclicked = uclicked;
+
+        or:
+            window.uclicked = function() {
+            // do something
+            }
+28. index.html, index.js, index.css, ... kopieren nach src/templates/fullstack.html, fullstack.js, ...
+    a. webpack.config.js nachziehen
+
+29. Drag and Drop
+    a. npm install dragula --save (https://github.com/bevacqua/dragula, https://github.com/bevacqua/react-dragula)
+    b. draganddrop.html
+    c. draganddrop.js
+    d. draganddrop.css (Standard CSS von Dragula, 1.Zeile)
+
+30. Drag and Drop mit react (https://github.com/bevacqua/react-dragula)
+    a.npm install react-dragula --save
+    b. ./src/react/draganddrop/draganddrop.js erstellen
+    c. ./src/tenplates/fullstack.html
+        ...
+        <br/>
+        <span id="test-react-draganddrop></span>
+    d. ./src/templates/fullstack.js
+        import "../react/draganddrop/draganddrop.js";
+    e. ./src/react/draganddrop/draganddrop.js
+            import dragula from 'dragula';
+            ...
+    f. ./src/react/draganddrop/draganddrop.css (Standard CSS von Dragula, 1.Zeile)
+31. Neue Ordnerstruktur inkl. Adaptierung webpack.config.js
+32. Yarn isntallieren (Package Manager wie npm)
+    a. https://yarnpkg.com/en/docs/install#windows-stable (C:\Program Files (x86)\Yarn\)
+    b. Umgebungsvariable für yarn adaptieren (PATH): C:\Program Files (x86)\Yarn\bin\
+33. Load react Components dynamically 
+    a. npm install react-loadable --save (https://www.npmjs.com/package/react-loadable) [alternativ: yarn add react-loadable]
+        INFO: funktioniert im Home Office, aber nicht in Schärding (Proxy?)
+    b. ./src/apps/react/react-root.js
+        import Loadable from 'react-loadable';
+    c. npm install --save-dev @babel/plugin-syntax-dynamic-import
+    d. .babelrc
+        {
+            "presets": [
+                "@babel/preset-env", "@babel/preset-react", "@babel/typescript", "mobx"
+            ],
+            "plugins": ["@babel/plugin-syntax-dynamic-import"]
+
+        }
+    e.
+34. Styled-Components (https://www.styled-components.com/docs/basics)
+    a. npm install styled-components --save
+    b. npm install --save-dev babel-plugin-styled-components
+    c. .babelrc
+        {
+            "presets": [
+                "@babel/preset-env", "@babel/preset-react", "@babel/typescript", "mobx"
+            ],
+            "plugins": ["@babel/plugin-syntax-dynamic-import", "babel-plugin-styled-components"]
+        }
+    d. react-root.js
+        import styled, { css } from 'styled-components';
+
+        const MyButton = styled.button`
+        background: transparent;
+        border-radius: 3px;
+        border: 2px solid palevioletred;
+        color: palevioletred;
+        margin: 0 1em;
+        padding: 0.25em 1em;
+        ${props =>
+            props.primary &&
+            css`
+            background: palevioletred;
+            color: white;
+            `};
+        `
+        ...
+        <MyButton>Add Control</MyButton>
+        <MyButton primary>Add Control</MyButton>
+    e. Theming
+        + react-route.js
+            import styled, { css, ThemeProvider } from 'styled-components';
+
+            const theme = {
+                secondaryColor: 'white',
+                primaryColor: 'black',
+                borderColor: '#ccc',
+            };
+            ...
+            <ThemeProvider theme={theme}>
+                <div>
+            ...
+        + myapp.js
+            import styled from 'styled-components';
+
+            const MyDiv = styled.button`
+                background-color: ${(props) => props.theme.borderColor}
+                `
+            ...
+            <MyDiv>
+                <div style={{backgroundColor: this.props.backgroundcolor}}>
+                    <p>App1 ({this.props.test})</p>
+                </div>
+            </MyDiv>
+    f.Intellisense
+        + https://github.com/styled-components/vscode-styled-components
+        + STRG + P --> ext install vscode-styled-components
+    h. GlobalStyle und Theme in separate Datei
+        + ./src/apps/react/theme/theme.js erstellen
+            import { createGlobalStyle } from 'styled-components'
+
+            export const GlobalStyle = createGlobalStyle`
+            body {
+                color: ${props => (props.whiteColor ? 'white' : 'black')};
+                font-family: ${props => props.theme.fontFamily};
+            }
+            `
+        + ./src/apps/react/react-root.js
+            import styled, { css, ThemeProvider, createGlobalStyle } from 'styled-components';
+            ...
+            import { theme, GlobalStyle } from './theme/theme';
+            ...
+            <GlobalStyle whiteColor />
+        + ./src/apps/react/myapp.js
+            const MyDiv = styled.button`
+                background-color: ${(props) => props.theme.primaryColor}
+            `;
+            ...
+            render (props){
+                return (
+                    <MyDiv>
+                        <div style={{backgroundColor: this.props.backgroundcolor}}>
+                            <p>App1 ({this.props.test})</p>
+                        </div>
+                    </MyDiv>
+                );
+            }
+            // import { theme } from '../../theme';
+            export const theme = {
+                secondaryColor: 'white',
+                primaryColor: 'black',
+                borderColor: '#ccc',
+            };
+35. Material UI Using
+    a. npm install @material-ui/core (https://material-ui.com/)
+    b.  react-root.js
+        import Button from '@material-ui/core/Button';
+        ...
+        <Button variant="contained" color="primary">
+            Hello Material UI
+        </Button>
+    c. 
+36. Axios
+    + npm install axios --save (https://github.com/axios/axios)
+    + fullstack.js
+        import axios from 'axios';
+        ...
+         axios({
+        method:'get',
+        url:'http://localhost:3000/test',
+        params: {
+            id: '1',
+            test: 'test'        }
+        })
+        .then(function (response) {
+
+            $('#test-webapi').html("Test Web API:<br/><br/>" + JSON.stringify(response.data));
+
+            $('#test-webapi').append("</br>");
+
+            // for (var row in JSON.parse(data)){
+            //     $('h1').append(JSON.stringify(row));
+            // }
+
+            $('#test-webapi').append("Datensätze: " + response.data.length);
+
+            $('#test-webapi').append("</br>");
+
+            for (var i = 0; i < response.data.length; i++) // for each row
+            {
+                // $('h1').append(response.data[i]['firstName']);
+                Object.keys(response.data[i]).forEach(function(key) {
+                    $('#test-webapi').append('Key : ' + key + ', Value : ' + response.data[i][key] + " - ");
+                  })
+                  $('#test-webapi').append("</br>");
+            }
+        });
+37. React router (https://blog.pusher.com/getting-started-with-react-router-v4/, https://tylermcginnis.com/react-router-pass-props-to-components/)
+    a. npm install --save react-router-dom
+    b. ./src/apps/react/react-root.js
+        import { BrowserRouter , Switch, Route} from 'react-router-dom';
+        ...
+        <div id="dz23" style={{backgroundColor: 'yellow', border: '2px solid #000000'}} className='container' ref={dragulaDecorator}>
+            <Switch>
+                {/* <Route exact path='/' component={AppStatic}></Route> */}
+                <Route exact path='/' render={(props) => <AppStatic {...props} test='Test: /' />}></Route>
+                <Route exact path='/test' render={(props) => <AppStatic {...props} test='Test: Test' />}></Route>
+                <Route exact path='/daten' render={(props) => <AppStatic {...props} test='Test: Daten' />}></Route>
+            </Switch>
+        </div>
+    c. ./src/apps/react/MyNavigation.js
+        import { NavLink } from 'react-router-dom';
+        ...
+        render (props){
+            return (
+                <nav>
+                    <ul>
+                        <li><NavLink to='/'>Home</NavLink></li>
+                        <li><NavLink to='/test'>Test</NavLink></li>
+                        <li><NavLink to='/daten'>Daten</NavLink></li>
+                    </ul>
+            </nav>
+            );
+        }
+    d. ./src/apps/react/MyAppStatic.js
+        ...
+        render (props){
+            return (
+                <div style={{backgroundColor: this.props.backgroundcolor}}>
+                    <p>App8 ({this.props.test})</p>
+                </div>
+            );
+        }
+38. GIT
+    a. Befehle
+        +  git fetch --prune
+        +  git fetch
+    b. https://patrick-reidinger.visualstudio.com/
+    c. Create a project (Name: RP_CMS_IND, Visibilty: private, Version Control: Git, Work Item process: Agile)
+    d. > git init
+    e. > git remote add origin https://patrick-reidinger.visualstudio.com/RP_CMS_IND/_git/RP_CMS_IND
+        + siehe (https://patrick-reidinger.visualstudio.com/_git/RP_CMS_IND)
+    f. > git push -u origin --all
+    g. Git --> Commit
+    h. Git --> Push
+23. Mobx + React + TypeScript
+24. TypeScript
+25. Routing
+26. Templating (lit-html ...?)
+27. Forms, Validation, ...
+28. Image Bundling (web pack)
+29. Code Splitting / Dynamic Imports
+    a. Dynamic imports: https://developers.google.com/web/updates/2017/11/dynamic-import
+
+    
+
+
+
+
