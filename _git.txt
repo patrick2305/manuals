@@ -25,6 +25,7 @@
 
 + .gitignore
 
+
 Delete Local Branch
 + git branch -d LOCAL_BRANCH_NAME (vorher zu anderen Branch gehen)
 Delete REmote Branch
