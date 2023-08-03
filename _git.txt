@@ -1,35 +1,27 @@
-﻿
+﻿+ Visual Studio Code in Github anmelden
 + git config --global user.name patrick2305
 + git config --global http.sslVerify false
 
-+ https://github.com/ --> New Repository --> Repository name angeben ("manuals")
-    + private
-    + alles deaktiviert lassen
-+ STRG + Ö --> Terminal
-+ Command Line (Befehle bekomme ich von Github nach Erstellen des Repositories)
-    echo "# manuals" >> README.md
-    git init
-    git add README.md
-    git commit -m "first commit"
-    git branch -M main
-    git remote add origin https://github.com/patrick2305/manuals.git
-    git push -u origin main
-
-+ Devops: Repository anlegen ohne Branch
-    git init
-    git remote add origin https://krm-it.visualstudio.com/Sharepoint%20Online/_git/Foto%20Upload
-    Git fetch
-    Git add --all
-    git commit -m "Init"
-    git push -u origin master
++ Repository in Github anlegen
++ Visual Studio Code - Command Palette (STRG+SHIFT+P)
++ GIT: CLONE
++ Anweisungen befolgen (Es wird neues Verzeichins in dem ausgewählten Verzeichnis ausgewählt)
++ Lokales Verzeichnis umbenennen (wenn man will)
 
 + .gitignore
 
 
-Delete Local Branch
-+ git branch -d LOCAL_BRANCH_NAME (vorher zu anderen Branch gehen)
-Delete REmote Branch
-+ git push origin --delete test
+--------------------------------------
+Code aus Github
+
+echo "# summary" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/patrick2305/summary.git
+git push -u origin main
+
 
 
 
